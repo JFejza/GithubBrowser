@@ -18,11 +18,12 @@
 		240D87A11E75F4DA000E8D13 /* RepoSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87881E75F4DA000E8D13 /* RepoSearchViewController.swift */; };
 		240D87A21E75F4DA000E8D13 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D878A1E75F4DA000E8D13 /* APIManager.swift */; };
 		240D87A61E75F4DA000E8D13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 240D87921E75F4DA000E8D13 /* Assets.xcassets */; };
-		240D87A71E75F4DA000E8D13 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 240D87931E75F4DA000E8D13 /* Info.plist */; };
 		240D87A81E75F4DA000E8D13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240D87941E75F4DA000E8D13 /* LaunchScreen.storyboard */; };
 		240D87AB1E75F4F8000E8D13 /* RepoSearchViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87AA1E75F4F8000E8D13 /* RepoSearchViewControllerTests.swift */; };
 		240D87AD1E75F70A000E8D13 /* RepoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87AC1E75F70A000E8D13 /* RepoCoordinator.swift */; };
 		240D87AF1E75F73E000E8D13 /* RepoSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87AE1E75F73E000E8D13 /* RepoSearchPresenter.swift */; };
+		240D87B31E760669000E8D13 /* RepoSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87B21E760669000E8D13 /* RepoSearchTableViewCell.swift */; };
+		240D87B51E760B80000E8D13 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87B41E760B80000E8D13 /* Repo.swift */; };
 		8B90CD662EDC9B64F94EF8B2 /* Pods_GithubBrowserTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90038FC2D0665D563C816A8C /* Pods_GithubBrowserTests.framework */; };
 		BB81874661109C958AC60BAB /* Pods_GithubBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E79BAB2C3ECED1B6840576B /* Pods_GithubBrowser.framework */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,8 @@
 		240D87AA1E75F4F8000E8D13 /* RepoSearchViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoSearchViewControllerTests.swift; sourceTree = "<group>"; };
 		240D87AC1E75F70A000E8D13 /* RepoCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCoordinator.swift; sourceTree = "<group>"; };
 		240D87AE1E75F73E000E8D13 /* RepoSearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoSearchPresenter.swift; sourceTree = "<group>"; };
+		240D87B21E760669000E8D13 /* RepoSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoSearchTableViewCell.swift; sourceTree = "<group>"; };
+		240D87B41E760B80000E8D13 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		241E3FBD1E72A94500C4980D /* GithubBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		241E3FD11E72A94600C4980D /* GithubBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		241E3FD71E72A94600C4980D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 			children = (
 				240D87861E75F4DA000E8D13 /* Repos.storyboard */,
 				240D87AC1E75F70A000E8D13 /* RepoCoordinator.swift */,
+				240D87B11E7605F3000E8D13 /* Components */,
 				240D87851E75F4DA000E8D13 /* Presenters */,
 				240D87871E75F4DA000E8D13 /* ViewControllers */,
 			);
@@ -167,6 +171,7 @@
 		240D878B1E75F4DA000E8D13 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				240D87B41E760B80000E8D13 /* Repo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -209,6 +214,14 @@
 			children = (
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		240D87B11E7605F3000E8D13 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				240D87B21E760669000E8D13 /* RepoSearchTableViewCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		241E3FB41E72A94500C4980D = {
@@ -354,7 +367,6 @@
 				240D87A61E75F4DA000E8D13 /* Assets.xcassets in Resources */,
 				240D87A81E75F4DA000E8D13 /* LaunchScreen.storyboard in Resources */,
 				240D87A01E75F4DA000E8D13 /* Repos.storyboard in Resources */,
-				240D87A71E75F4DA000E8D13 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				240D879A1E75F4DA000E8D13 /* NibConveniences.swift in Sources */,
+				240D87B51E760B80000E8D13 /* Repo.swift in Sources */,
 				240D879B1E75F4DA000E8D13 /* Protocols.swift in Sources */,
 				240D879D1E75F4DA000E8D13 /* ReuseIdentifierConveniences.swift in Sources */,
 				240D87A11E75F4DA000E8D13 /* RepoSearchViewController.swift in Sources */,
@@ -476,6 +489,7 @@
 				240D879C1E75F4DA000E8D13 /* Reachability.swift in Sources */,
 				240D87AD1E75F70A000E8D13 /* RepoCoordinator.swift in Sources */,
 				240D87A21E75F4DA000E8D13 /* APIManager.swift in Sources */,
+				240D87B31E760669000E8D13 /* RepoSearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

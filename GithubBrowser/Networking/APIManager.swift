@@ -9,7 +9,7 @@ struct APIManager {
     
     let reachability = Reachability.networkReachabilityForInternetConnection()
     
-    func execute<T: Unboxable>(method: HTTPMethod, route: String, params: Parameters? = nil, success: @escaping (T) -> (), failure: @escaping ((String) -> ())) -> Request? {
+    func execute(method: HTTPMethod, route: String, params: Parameters? = nil, success: @escaping ([String: Any]) -> (), failure: @escaping ((String) -> ())) -> Request? {
         
         if let reachy = reachability {
             if !reachy.isReachable {
@@ -23,8 +23,7 @@ struct APIManager {
                 switch response.result {
                 case .success:
                     if let json = response.result.value as? [String: Any] {
-                        let model: T = try! unbox(dictionary: json)
-                        success(model)
+                        success(json)
                     } else {
                         failure(UIStrings.requestFailed)
                         

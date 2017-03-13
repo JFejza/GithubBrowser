@@ -13,7 +13,6 @@
 		240D879B1E75F4DA000E8D13 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D877E1E75F4DA000E8D13 /* Protocols.swift */; };
 		240D879C1E75F4DA000E8D13 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D877F1E75F4DA000E8D13 /* Reachability.swift */; };
 		240D879D1E75F4DA000E8D13 /* ReuseIdentifierConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87801E75F4DA000E8D13 /* ReuseIdentifierConveniences.swift */; };
-		240D879F1E75F4DA000E8D13 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87821E75F4DA000E8D13 /* Utils.swift */; };
 		240D87A01E75F4DA000E8D13 /* Repos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240D87861E75F4DA000E8D13 /* Repos.storyboard */; };
 		240D87A11E75F4DA000E8D13 /* RepoSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D87881E75F4DA000E8D13 /* RepoSearchViewController.swift */; };
 		240D87A21E75F4DA000E8D13 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D878A1E75F4DA000E8D13 /* APIManager.swift */; };
@@ -45,7 +44,6 @@
 		240D877E1E75F4DA000E8D13 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		240D877F1E75F4DA000E8D13 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		240D87801E75F4DA000E8D13 /* ReuseIdentifierConveniences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierConveniences.swift; sourceTree = "<group>"; };
-		240D87821E75F4DA000E8D13 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		240D87861E75F4DA000E8D13 /* Repos.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Repos.storyboard; sourceTree = "<group>"; };
 		240D87881E75F4DA000E8D13 /* RepoSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoSearchViewController.swift; sourceTree = "<group>"; };
 		240D878A1E75F4DA000E8D13 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 				240D87801E75F4DA000E8D13 /* ReuseIdentifierConveniences.swift */,
 				240D877E1E75F4DA000E8D13 /* Protocols.swift */,
 				240D877F1E75F4DA000E8D13 /* Reachability.swift */,
-				240D87821E75F4DA000E8D13 /* Utils.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -485,7 +482,6 @@
 				240D87951E75F4DA000E8D13 /* AppDelegate.swift in Sources */,
 				240D87AF1E75F73E000E8D13 /* RepoSearchPresenter.swift in Sources */,
 				240D87961E75F4DA000E8D13 /* Constants.swift in Sources */,
-				240D879F1E75F4DA000E8D13 /* Utils.swift in Sources */,
 				240D879C1E75F4DA000E8D13 /* Reachability.swift in Sources */,
 				240D87AD1E75F70A000E8D13 /* RepoCoordinator.swift in Sources */,
 				240D87A21E75F4DA000E8D13 /* APIManager.swift in Sources */,

@@ -21,21 +21,8 @@ extension CommonViewInterface where Self:UIViewController {
         SVProgressHUD.show(withStatus: message)
     }
     
-    func showSuccess(_ message:String?) {
-        if message != nil {
-            self.present(Alerter.alert(for: message!), animated: true, completion: nil)
-        } else {
-            SVProgressHUD.showSuccess(withStatus: "")
-        }
-    }
-    
     func showFailure(_ message:String?) {
-        SVProgressHUD.dismiss()
-        if message != nil {
-            self.present(Alerter.alert(for: message!), animated: true, completion: nil)
-        } else {
-            SVProgressHUD.showError(withStatus: "")
-        }
+        SVProgressHUD.showError(withStatus: message)
     }
     
     func hideLoading() {

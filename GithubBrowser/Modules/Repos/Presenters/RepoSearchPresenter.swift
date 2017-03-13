@@ -8,10 +8,19 @@
 
 import Foundation
 
+enum SortType {
+    case stars
+    case forks
+    case updated
+}
+
 protocol RepoSearchPresenterInterface {
     unowned var viewController: RepoSearchViewController {get set}
-    var numberOfItems: Int {get set}
-    func viewCreated()
+    var numberOfItems: Int {get}
+    func item(at index: Int) -> Repo
+    func didLoadView()
+    func didSelectSortType(type: SortType)
+    func didTapSort()
 }
 
 class RepoSearchPresenter: RepoSearchPresenterInterface {
@@ -23,10 +32,26 @@ class RepoSearchPresenter: RepoSearchPresenterInterface {
         self.viewController = viewController
     }
     
-    private var items
-    var numberOfItems = 0
+    private var items: [Repo] = []
+    private var sortType = SortType.updated
     
-    func viewCreated() {
+    var numberOfItems: Int {
+        return items.count
+    }
+    
+    func didLoadView() {
         
+    }
+    
+    func item(at index: Int) -> Repo {
+        return items[index]
+    }
+    
+    func didSelectSortType(type: SortType) {
+        self.sortType = type
+    }
+    
+    func didTapSort() {
+        viewController.presentSortAlert()
     }
 }

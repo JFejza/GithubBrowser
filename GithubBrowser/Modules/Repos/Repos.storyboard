@@ -124,10 +124,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Search repositories" id="9LI-M8-DcJ">
-                        <barButtonItem key="rightBarButtonItem" title="Sort" id="fRg-im-X3Y"/>
+                        <barButtonItem key="rightBarButtonItem" title="Sort" id="fRg-im-X3Y">
+                            <connections>
+                                <action selector="sortTapped:" destination="BYZ-38-t0r" id="uMY-1l-fke"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="sortBarButtonItem" destination="fRg-im-X3Y" id="6R6-vF-J0C"/>
                         <outlet property="tableView" destination="Ku2-lJ-Fss" id="hYq-H6-ebM"/>
                     </connections>
                 </viewController>

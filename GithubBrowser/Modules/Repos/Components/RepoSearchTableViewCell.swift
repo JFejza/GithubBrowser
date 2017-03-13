@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class RepoSearchTableViewCell: UITableViewCell {
     
@@ -19,6 +20,15 @@ class RepoSearchTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    func setup(with item: Repo) {
+        authorImageView.sd_setImage(with: item.authorImageUrl)
+        repoLabel.text = item.name
+        authorLabel.text = item.author
+        watcherLabel.text = "Watchers: " + String(item.watcherCount)
+        forkLabel.text = "Forks: " + String(item.forkCount)
+        issueLabel.text = "Issues: " + String(item.issueCount)
     }
 
 }

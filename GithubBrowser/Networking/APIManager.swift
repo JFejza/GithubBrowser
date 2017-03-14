@@ -17,8 +17,10 @@ struct APIManager {
                 return nil
             }
         }
+        
+        let fullRoute = apiUrl + route
 
-        return Alamofire.request(route, method: method, parameters: params, encoding: JSONEncoding.default, headers: nil)
+        return Alamofire.request(fullRoute, method: method, parameters: params, encoding: URLEncoding.default, headers: nil)
             .responseJSON { (response) in
                 switch response.result {
                 case .success:

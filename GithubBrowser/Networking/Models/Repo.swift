@@ -6,6 +6,7 @@
 //  Copyright © 2017 Jtronik. All rights reserved.
 //
 
+import Foundation
 import Unbox
 
 struct Repo {
@@ -15,8 +16,8 @@ struct Repo {
     let watcherCount: Int
     let forkCount: Int
     let issueCount: Int
-    let desc: String
-    let languageName: String
+    let desc: String?
+    let languageName: String?
     let starCount: Int
     let dateCreated: Date
     let dateChanged: Date
@@ -26,12 +27,12 @@ extension Repo: Unboxable {
     init(unboxer: Unboxer) throws {
         self.name = try unboxer.unbox(key: "name")
         self.author = try unboxer.unbox(keyPath: "owner.login")
-        self.authorImageUrl = try unboxer.unbox(key: "owner.avatar_url")
+        self.authorImageUrl = try unboxer.unbox(keyPath: "owner.avatar_url")
         self.watcherCount = try unboxer.unbox(key: "watchers_count")
         self.forkCount = try unboxer.unbox(key: "forks_count")
         self.issueCount = try unboxer.unbox(key: "open_issues_count")
-        self.desc = try unboxer.unbox(key: "description")
-        self.languageName = try unboxer.unbox(key: "language")
+        self.desc = unboxer.unbox(key: "description")
+        self.languageName = unboxer.unbox(key: "language")
         self.starCount = try unboxer.unbox(key: "stargazers_count")
         
         let dateFormatter = DateFormatter()

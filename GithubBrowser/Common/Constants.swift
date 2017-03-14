@@ -2,7 +2,7 @@
 
 import Foundation
 
-let apiUrl = "http://private-1a2f41-clerkapi.apiary-mock.com/"
+let apiUrl = "https://api.github.com/search/"
 
 struct UIStrings {
     static let requestFailed = "Request failed!"

@@ -9,12 +9,12 @@
 import UIKit
 import DZNEmptyDataSet
 
-class RepoSearchViewController: UIViewController {
+class RepoSearchViewController: UIViewController, CommonViewInterface {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortBarButtonItem: UIBarButtonItem!
     
-    var presenter: RepoSearchPresenterInterface!
+    var presenter: RepoSearchPresenter!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,16 +25,20 @@ class RepoSearchViewController: UIViewController {
         presenter.didTapSort()
     }
     
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
     func presentSortAlert() {
         let alert = UIAlertController(title: "Select sort", message: "", preferredStyle: .alert)
         let starsAction = UIAlertAction(title: "Stars", style: .default) { _ in
-            self.presenter.didSelectSortType(type: .stars)
+            self.selectSort(type: .stars)
         }
         let forksAction = UIAlertAction(title: "Forks", style: .default) { _ in
-            self.presenter.didSelectSortType(type: .forks)
+            self.selectSort(type: .forks)
         }
         let updatedAction = UIAlertAction(title: "Updated", style: .default) { _ in
-            self.presenter.didSelectSortType(type: .updated)
+            self.selectSort(type: .updated)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(starsAction)
@@ -43,12 +47,16 @@ class RepoSearchViewController: UIViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    func selectSort(type: SortType) {
+        self.presenter.didSelectSort(type: type)
+    }
 
 }
 
 extension RepoSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfItems
+        return presenter.numberOfItems()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -8,46 +8,48 @@
 
 import Foundation
 
-enum SortType {
+enum SortType: String {
     case stars
     case forks
     case updated
 }
 
-protocol RepoSearchPresenterInterface {
-    unowned var viewController: RepoSearchViewController {get set}
-    var numberOfItems: Int {get}
-    func item(at index: Int) -> Repo
-    func didLoadView()
-    func didSelectSortType(type: SortType)
-    func didTapSort()
-}
-
-class RepoSearchPresenter: RepoSearchPresenterInterface {
-    private let coordinator: RepoCoordinatorInterface
-    unowned var viewController: RepoSearchViewController
-    
-    public init(coordinator: RepoCoordinatorInterface, viewController: RepoSearchViewController) {
-        self.coordinator = coordinator
-        self.viewController = viewController
-    }
+class RepoSearchPresenter {
+    private let coordinator: RepoCoordinatorInterface?
+    private unowned var viewController: RepoSearchViewController
     
     private var items: [Repo] = []
     private var sortType = SortType.updated
     
-    var numberOfItems: Int {
-        return items.count
+    public init(coordinator: RepoCoordinatorInterface? = nil, viewController: RepoSearchViewController) {
+        self.coordinator = coordinator
+        self.viewController = viewController
     }
     
     func didLoadView() {
-        
+        let service = RepoService()
+        viewController.showLoading()
+        _ = service.getRepos(query: "dzn", sortType: .updated, success: { (repos) in
+            self.viewController.hideLoading()
+            
+            self.items = repos
+            self.viewController.reloadData()
+        }, failure: { error in
+            self.viewController.hideLoading()
+            
+            self.viewController.showFailure(error)
+        })
+    }
+    
+    func numberOfItems() -> Int {
+        return items.count
     }
     
     func item(at index: Int) -> Repo {
         return items[index]
     }
     
-    func didSelectSortType(type: SortType) {
+    func didSelectSort(type: SortType) {
         self.sortType = type
     }
     

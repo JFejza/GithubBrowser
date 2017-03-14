@@ -17,10 +17,14 @@ struct RepoCoordinator: RepoCoordinatorInterface {
     let navigationController: UINavigationController
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+    }
+    
+    func start() -> UIViewController {
         let viewController = RepoSearchViewController.from(storyboard: .Repos)
         let presenter = RepoSearchPresenter(coordinator: self, viewController: viewController)
         viewController.presenter = presenter
-        navigationController.setViewControllers([viewController], animated: false)
+        navigationController.pushViewController(viewController, animated: false)
+        return viewController
     }
     
 }

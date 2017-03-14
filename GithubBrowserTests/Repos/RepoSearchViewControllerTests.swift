@@ -9,28 +9,29 @@
 import XCTest
 @testable import GithubBrowser
 
-class RepoSearchPresenterMock: RepoSearchPresenterInterface {
-    unowned var viewController: RepoSearchViewController
-    init(viewController: RepoSearchViewController) {
-        self.viewController = viewController
-    }
-    func didSelectSortType(type: SortType) {}
-    
+class RepoSearchPresenterMock: RepoSearchPresenter {
     var viewCreatedFlag = false
     var sortFlag = false
+    var type = SortType.updated
     
-    func didLoadView() {
+    override func didSelectSort(type: SortType) {
+        self.type = type
+    }
+    
+    override func didLoadView() {
         viewCreatedFlag = true
     }
     
-    var numberOfItems = 5
-    func item(at index: Int) -> Repo {
+    override func item(at index: Int) -> Repo {
         return Repo(name: "Testme", author: "", authorImageUrl: URL(string: "http://www.google.com")!, watcherCount: 0, forkCount: 0, issueCount: 0, desc: "", languageName: "", starCount: 0, dateCreated: Date(), dateChanged: Date())
     }
     
-    
-    func didTapSort() {
+    override func didTapSort() {
         sortFlag = true
+    }
+    
+    override func numberOfItems() -> Int {
+        return 5
     }
     
 }
@@ -61,13 +62,7 @@ class RepoSearchViewControllerTests: XCTestCase {
     func testNumberOfRows() {
         _ = viewController.view
         let rows = viewController.tableView(viewController.tableView, numberOfRowsInSection: 0)
-        XCTAssertEqual(rows, presenter.numberOfItems)
-    }
-    
-    func testCellReturn() {
-        _ = viewController.view
-        let cell = viewController.tableView(viewController.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
-        XCTAssertTrue(cell is RepoSearchTableViewCell)
+        XCTAssertEqual(rows, presenter.numberOfItems())
     }
     
     func testCellSetup() {
@@ -80,6 +75,12 @@ class RepoSearchViewControllerTests: XCTestCase {
         _ = viewController.view
         viewController.sortTapped(viewController.sortBarButtonItem)
         XCTAssertTrue(presenter.sortFlag)
+    }
+    
+    func testSortSelect() {
+        _ = viewController.view
+        viewController.selectSort(type: .stars)
+        XCTAssertEqual(presenter.type, .stars)
     }
     
 }

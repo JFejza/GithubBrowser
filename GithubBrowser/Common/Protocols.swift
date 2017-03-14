@@ -6,7 +6,6 @@ import SVProgressHUD
 protocol CommonViewInterface: class {
     func showLoading()
     func showLoading(_ message:String?)
-    func showSuccess(_ message:String?)
     func showFailure(_ message:String?)
     func hideLoading()
 }

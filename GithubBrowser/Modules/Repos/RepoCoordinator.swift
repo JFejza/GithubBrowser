@@ -15,9 +15,6 @@ protocol RepoCoordinatorInterface: CoordinatorInterface {
 struct RepoCoordinator: RepoCoordinatorInterface {
     
     let navigationController: UINavigationController
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
     
     func start() -> UIViewController {
         let viewController = RepoSearchViewController.from(storyboard: .Repos)

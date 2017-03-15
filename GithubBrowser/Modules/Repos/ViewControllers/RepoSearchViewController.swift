@@ -8,16 +8,23 @@
 
 import UIKit
 import DZNEmptyDataSet
+import RxSwift
+import RxCocoa
 
 class RepoSearchViewController: UIViewController, CommonViewInterface {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var presenter: RepoSearchPresenter!
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.rx.text.orEmpty
+            .throttle(0.3, scheduler: MainScheduler.instance)
+            .bindTo(presenter.query).addDisposableTo(disposeBag)
         presenter.didLoadView()
     }
 
@@ -49,7 +56,7 @@ class RepoSearchViewController: UIViewController, CommonViewInterface {
     }
     
     func selectSort(type: SortType) {
-        self.presenter.didSelectSort(type: type)
+        presenter.sortType.value = type
     }
 
 }

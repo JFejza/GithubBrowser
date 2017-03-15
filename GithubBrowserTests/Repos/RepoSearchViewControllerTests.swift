@@ -7,19 +7,15 @@
 //
 
 import XCTest
+import RxSwift
 @testable import GithubBrowser
 
 class RepoSearchPresenterMock: RepoSearchPresenter {
-    var viewCreatedFlag = false
     var sortFlag = false
-    var type = SortType.updated
-    
-    override func didSelectSort(type: SortType) {
-        self.type = type
-    }
+    var viewLoadFlag = false
     
     override func didLoadView() {
-        viewCreatedFlag = true
+        viewLoadFlag = true
     }
     
     override func item(at index: Int) -> Repo {
@@ -54,9 +50,9 @@ class RepoSearchViewControllerTests: XCTestCase {
         presenter = nil
     }
     
-    func testViewDidLoad() {
+    func testViewLoad() {
         _ = viewController.view
-        XCTAssertTrue(presenter.viewCreatedFlag)
+        XCTAssertTrue(presenter.viewLoadFlag)
     }
     
     func testNumberOfRows() {
@@ -80,7 +76,7 @@ class RepoSearchViewControllerTests: XCTestCase {
     func testSortSelect() {
         _ = viewController.view
         viewController.selectSort(type: .stars)
-        XCTAssertEqual(presenter.type, .stars)
+        XCTAssertEqual(presenter.sortType.value, .stars)
     }
     
 }

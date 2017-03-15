@@ -7,16 +7,7 @@ import Alamofire
 
 struct APIManager {
     
-    let reachability = Reachability.networkReachabilityForInternetConnection()
-    
-    func execute(method: HTTPMethod, route: String, params: Parameters? = nil, success: @escaping ([String: Any]) -> (), failure: @escaping ((String) -> ())) -> Request? {
-        
-        if let reachy = reachability {
-            if !reachy.isReachable {
-                failure(UIStrings.noInternetNoCache)
-                return nil
-            }
-        }
+    func execute(method: HTTPMethod, route: String, params: Parameters? = nil, success: @escaping ([String: Any]) -> (), failure: @escaping ((Error) -> ())) -> Request? {
         
         let fullRoute = apiUrl + route
 
@@ -27,11 +18,11 @@ struct APIManager {
                     if let json = response.result.value as? [String: Any] {
                         success(json)
                     } else {
-                        failure(UIStrings.requestFailed)
+                        failure(response.error!)
                         
                     }
                 case .failure(_):
-                    failure(UIStrings.requestFailed)
+                    failure(response.error!)
                 }
         }
     }

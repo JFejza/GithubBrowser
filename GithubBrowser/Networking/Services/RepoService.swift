@@ -12,11 +12,16 @@ import Unbox
 
 struct RepoService {
     
-    func getRepos(query: String, sortType: SortType, success: @escaping ([Repo]) -> (), failure: @escaping ((String) -> ())) -> Request? {
-        return APIManager().execute(method: .get, route: "repositories", params: ["q": query], success: { (json) in
+    func getRepos(query: String, sortType: SortType, success: @escaping ([Repo]) -> (), failure: @escaping ((Error) -> ())) -> Request? {
+        return APIManager().execute(method: .get, route: "repositories", params: ["q": query, "sort": sortType.rawValue], success: { (json) in
             let items = json["items"]
-            let repos: [Repo] = try! unbox(dictionaries: items as! [UnboxableDictionary])
-            success(repos)
+            do {
+                let repos: [Repo] = try unbox(dictionaries: items as! [UnboxableDictionary])
+                success(repos)
+            } catch {
+                failure(error)
+            }
+            
         }, failure: failure)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 enum SortType: String {
     case stars
@@ -19,7 +20,10 @@ class RepoSearchPresenter {
     private unowned var viewController: RepoSearchViewController
     
     private var items: [Repo] = []
-    private var sortType = SortType.updated
+    
+    var sortType = Variable(SortType.updated);
+    var query = Variable("")
+    let disposeBag = DisposeBag()
     
     public init(coordinator: RepoCoordinatorInterface? = nil, viewController: RepoSearchViewController) {
         self.coordinator = coordinator
@@ -27,18 +31,31 @@ class RepoSearchPresenter {
     }
     
     func didLoadView() {
-        let service = RepoService()
-        viewController.showLoading()
-        _ = service.getRepos(query: "dzn", sortType: .updated, success: { (repos) in
-            self.viewController.hideLoading()
+        Observable.combineLatest(query.asObservable(), sortType.asObservable()) { (text, sort) -> Observable<[Repo]> in
+            if text.isEmpty {
+                return Observable.just([Repo]())
+            }
             
-            self.items = repos
-            self.viewController.reloadData()
-        }, failure: { error in
-            self.viewController.hideLoading()
-            
-            self.viewController.showFailure(error)
-        })
+            return Observable<[Repo]>.create({ (observer) -> Disposable in
+                let service = RepoService()
+                let request = service.getRepos(query: text, sortType: sort, success: { (repos) in
+                    observer.onNext(repos)
+                }, failure: { error in
+                    observer.onError(error)
+                })
+                return Disposables.create {
+                    request!.cancel()
+                }
+            })
+            }
+            .flatMapLatest( { $0 } )
+            .catchErrorJustReturn([])
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (repos) in
+                self.items = repos
+                self.viewController.reloadData()
+            })
+            .addDisposableTo(disposeBag)
     }
     
     func numberOfItems() -> Int {
@@ -47,10 +64,6 @@ class RepoSearchPresenter {
     
     func item(at index: Int) -> Repo {
         return items[index]
-    }
-    
-    func didSelectSort(type: SortType) {
-        self.sortType = type
     }
     
     func didTapSort() {

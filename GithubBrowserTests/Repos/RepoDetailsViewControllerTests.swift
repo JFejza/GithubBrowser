@@ -32,6 +32,11 @@ class RepoDetailsViewControllerTests: XCTestCase {
         XCTAssertTrue(presenter.viewLoadFlag)
     }
     
+    func testSetup() {
+        _ = viewController.view
+        XCTAssertEqual(viewController.authorLabel.text, Repo.mock.author)
+    }
+    
     func testAuthorTap() {
         _ = viewController.view
         viewController.authorTapped(viewController.authorButton)

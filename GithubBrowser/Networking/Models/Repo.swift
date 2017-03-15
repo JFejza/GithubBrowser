@@ -24,9 +24,15 @@ struct Repo {
     let repoPageUrl: URL
     let authorPageUrl: URL
     
-    static var dateFormatter: DateFormatter = {
+    static var unboxDateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return df
+    }()
+    
+    static var uiDateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "dd-MM-yyyy HH:mm"
         return df
     }()
 }
@@ -43,8 +49,8 @@ extension Repo: Unboxable {
         self.languageName = unboxer.unbox(key: "language")
         self.starCount = try unboxer.unbox(key: "stargazers_count")
         
-        self.dateCreated = try unboxer.unbox(key: "created_at", formatter: Repo.dateFormatter)
-        self.dateChanged = try unboxer.unbox(key: "updated_at", formatter: Repo.dateFormatter)
+        self.dateCreated = try unboxer.unbox(key: "created_at", formatter: Repo.unboxDateFormatter)
+        self.dateChanged = try unboxer.unbox(key: "updated_at", formatter: Repo.unboxDateFormatter)
         self.repoPageUrl = try unboxer.unbox(key: "html_url")
         self.authorPageUrl = try unboxer.unbox(keyPath: "owner.html_url")
     }

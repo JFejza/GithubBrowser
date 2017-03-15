@@ -20,6 +20,8 @@ class RepoDetailsViewController: UIViewController {
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var languageLabel: UILabel!
     @IBOutlet weak var visitButton: UIButton!
+    @IBOutlet weak var createdLabel: UILabel!
+    @IBOutlet weak var updatedLabel: UILabel!
     
     var presenter: RepoDetailsPresenter!
 
@@ -45,6 +47,8 @@ class RepoDetailsViewController: UIViewController {
         issueLabel.text = "Issues: " + String(repo.issueCount)
         aboutLabel.text = repo.desc ?? "No description is available for this repository."
         languageLabel.text = repo.languageName ?? "Unknown"
+        createdLabel.text = Repo.uiDateFormatter.string(from: repo.dateCreated)
+        updatedLabel.text = Repo.uiDateFormatter.string(from: repo.dateChanged)
     }
 
 }

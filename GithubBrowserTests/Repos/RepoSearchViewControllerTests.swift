@@ -10,28 +10,6 @@ import XCTest
 import RxSwift
 @testable import GithubBrowser
 
-class RepoSearchPresenterMock: RepoSearchPresenter {
-    var sortFlag = false
-    var viewLoadFlag = false
-    
-    override func didLoadView() {
-        viewLoadFlag = true
-    }
-    
-    override func item(at index: Int) -> Repo {
-        return Repo(name: "Testme", author: "", authorImageUrl: URL(string: "http://www.google.com")!, watcherCount: 0, forkCount: 0, issueCount: 0, desc: "", languageName: "", starCount: 0, dateCreated: Date(), dateChanged: Date())
-    }
-    
-    override func didTapSort() {
-        sortFlag = true
-    }
-    
-    override func numberOfItems() -> Int {
-        return 5
-    }
-    
-}
-
 class RepoSearchViewControllerTests: XCTestCase {
     
     var viewController: RepoSearchViewController!
@@ -77,6 +55,12 @@ class RepoSearchViewControllerTests: XCTestCase {
         _ = viewController.view
         viewController.selectSort(type: .stars)
         XCTAssertEqual(presenter.sortType.value, .stars)
+    }
+    
+    func testCellTap() {
+        _ = viewController.view
+        viewController.tableView(viewController.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
+        XCTAssertTrue(presenter.askedForItem)
     }
     
 }

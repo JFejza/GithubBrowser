@@ -19,7 +19,8 @@ class RepoSearchPresenter {
     private let coordinator: RepoCoordinatorInterface?
     private unowned var viewController: RepoSearchViewController
     
-    private var items: [Repo] = []
+    var items: [Repo] = []
+    var service: RepoServiceInterface = RepoService()
     
     var sortType = Variable(SortType.updated);
     var query = Variable("")
@@ -37,10 +38,13 @@ class RepoSearchPresenter {
             }
             
             return Observable<[Repo]>.create({ (observer) -> Disposable in
-                let service = RepoService()
-                let request = service.getRepos(query: text, sortType: sort, success: { (repos) in
+                let params = RepoSearchParams(query: text, sort: sort)
+                self.viewController.showLoading()
+                let request = self.service.getRepos(params: params, success: { (repos) in
+                    self.viewController.hideLoading()
                     observer.onNext(repos)
                 }, failure: { error in
+                    self.viewController.hideLoading()
                     observer.onError(error)
                 })
                 return Disposables.create {
@@ -72,6 +76,6 @@ class RepoSearchPresenter {
     
     func didSelectItem(at index: Int) {
         let item = items[index]
-        _ = coordinator?.navigateToDetails(repo: item)
+        coordinator?.navigateToDetails(repo: item)
     }
 }

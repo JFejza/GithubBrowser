@@ -9,17 +9,27 @@
 import Foundation
 import Alamofire
 import Unbox
+import Wrap
 
-struct RepoService {
+protocol RepoServiceInterface {
+    func getRepos(params: RepoSearchParams, success: @escaping ([Repo]) -> (), failure: @escaping ((Error) -> ())) -> Request?
+}
+
+struct RepoService: RepoServiceInterface {
     
-    func getRepos(query: String, sortType: SortType, success: @escaping ([Repo]) -> (), failure: @escaping ((Error) -> ())) -> Request? {
-        return APIManager().execute(method: .get, route: "repositories", params: ["q": query, "sort": sortType.rawValue], success: { (json) in
-            let items = json["items"]
-            do {
-                let repos: [Repo] = try unbox(dictionaries: items as! [UnboxableDictionary])
-                success(repos)
-            } catch {
-                failure(error)
+    func getRepos(params: RepoSearchParams, success: @escaping ([Repo]) -> (), failure: @escaping ((Error) -> ())) -> Request? {
+        let dict: [String: Any] = try! wrap(params)
+        return APIManager().execute(method: .get, route: "repositories", params: dict, success: { (json) in
+            
+            if let items = json["items"] as? [UnboxableDictionary] {
+                do {
+                    let repos: [Repo] = try unbox(dictionaries: items)
+                    success(repos)
+                } catch {
+                    failure(error)
+                }
+            } else {
+                failure(UnboxError.invalidData)
             }
             
         }, failure: failure)

@@ -21,8 +21,14 @@ struct Repo {
     let starCount: Int
     let dateCreated: Date
     let dateChanged: Date
-    let repoPage: URL
+    let repoPageUrl: URL
     let authorPageUrl: URL
+    
+    static var dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return df
+    }()
 }
 
 extension Repo: Unboxable {
@@ -37,11 +43,27 @@ extension Repo: Unboxable {
         self.languageName = unboxer.unbox(key: "language")
         self.starCount = try unboxer.unbox(key: "stargazers_count")
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        self.dateCreated = try unboxer.unbox(key: "created_at", formatter: dateFormatter)
-        self.dateChanged = try unboxer.unbox(key: "updated_at", formatter: dateFormatter)
-        self.repoPage = try unboxer.unbox(key: "html_url")
-        self.authorPageUrl = try unboxer.unbox(keyPath: "owner.url")
+        self.dateCreated = try unboxer.unbox(key: "created_at", formatter: Repo.dateFormatter)
+        self.dateChanged = try unboxer.unbox(key: "updated_at", formatter: Repo.dateFormatter)
+        self.repoPageUrl = try unboxer.unbox(key: "html_url")
+        self.authorPageUrl = try unboxer.unbox(keyPath: "owner.html_url")
+    }
+}
+
+extension Repo: Mockable {
+    static var mock: Repo {
+        return Repo(name: "Test",
+                    author: "Author",
+                    authorImageUrl: URL(string: "https://developer.apple.com/swift/images/swift-og.png")!,
+                    watcherCount: 1,
+                    forkCount: 2,
+                    issueCount: 3,
+                    desc: "Desc",
+                    languageName: "Swift",
+                    starCount: 4,
+                    dateCreated: Date(),
+                    dateChanged: Date(),
+                    repoPageUrl: URL(string: "http://www.google.com")!,
+                    authorPageUrl: URL(string: "http://www.google.com")!)
     }
 }

@@ -21,6 +21,14 @@ class RepoDetailsPresenter {
     }
     
     func didLoadView() {
-        
+        viewController.setup(with: repo)
+    }
+    
+    func didTapAuthorPage() {
+        coordinator?.openExternal(url: repo.authorPageUrl)
+    }
+    
+    func didTapRepoPage() {
+        coordinator?.openExternal(url: repo.repoPageUrl)
     }
 }

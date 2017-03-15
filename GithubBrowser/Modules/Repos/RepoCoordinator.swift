@@ -8,27 +8,34 @@
 
 import UIKit
 
-protocol RepoCoordinatorInterface: CoordinatorInterface {
-    func navigateToDetails(repo: Repo) -> UIViewController
+protocol RepoCoordinatorInterface: ExternalNavigatable {
+    func navigateToDetails(repo: Repo)
 }
 
-struct RepoCoordinator: RepoCoordinatorInterface {
+struct RepoCoordinator: CoordinatorInterface, RepoCoordinatorInterface {
     
     let navigationController: UINavigationController
     
-    func start() -> UIViewController {
+    func start() {
+        navigationController.pushViewController(getStartViewController(), animated: true)
+    }
+    
+    func navigateToDetails(repo: Repo) {
+        navigationController.pushViewController(getDetailsViewController(repo: repo), animated: true)
+    }
+    
+    //MARK: Setup
+    func getStartViewController() -> UIViewController {
         let viewController = RepoSearchViewController.from(storyboard: .Repos)
         let presenter = RepoSearchPresenter(coordinator: self, viewController: viewController)
         viewController.presenter = presenter
-        navigationController.pushViewController(viewController, animated: false)
         return viewController
     }
     
-    func navigateToDetails(repo: Repo) -> UIViewController {
+    func getDetailsViewController(repo: Repo) -> UIViewController {
         let viewController = RepoDetailsViewController.from(storyboard: .Repos)
         let presenter = RepoDetailsPresenter(coordinator: self, viewController: viewController, repo: repo)
         viewController.presenter = presenter
-        navigationController.pushViewController(viewController, animated: false)
         return viewController
     }
     

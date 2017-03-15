@@ -2,6 +2,7 @@
 
 import UIKit
 import SVProgressHUD
+import Unbox
 
 protocol CommonViewInterface: class {
     func showLoading()
@@ -32,7 +33,7 @@ extension CommonViewInterface where Self:UIViewController {
 
 protocol CoordinatorInterface {
     var navigationController: UINavigationController {get}
-    func start() -> UIViewController
+    func start()
     func pop()
     func dismiss()
 }
@@ -47,4 +48,18 @@ extension CoordinatorInterface {
         navigationController.dismiss(animated: true, completion: nil)
     }
     
+}
+
+protocol ExternalNavigatable {
+    func openExternal(url: URL)
+}
+
+extension ExternalNavigatable {
+    func openExternal(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+protocol Mockable {
+    static var mock: Self {get}
 }

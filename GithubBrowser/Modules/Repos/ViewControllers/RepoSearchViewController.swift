@@ -54,15 +54,10 @@ class RepoSearchViewController: UIViewController, CommonViewInterface {
         alert.addAction(updatedAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
-    }
     
+    }
     func selectSort(type: SortType) {
         presenter.sortType.value = type
-    }
-    
-    deinit {
-        tableView.emptyDataSetSource = nil
-        tableView.emptyDataSetDelegate = nil
     }
 
 }
@@ -82,6 +77,7 @@ extension RepoSearchViewController: UITableViewDataSource {
 
 extension RepoSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         presenter.didSelectItem(at: indexPath.row)
     }
 }
@@ -93,6 +89,15 @@ extension RepoSearchViewController: DZNEmptyDataSetSource {
     
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
         return presenter.numberOfItems() == 0
+    }
+    
+}
+
+//MARK: Keyboard convenience
+extension RepoSearchViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
     
 }

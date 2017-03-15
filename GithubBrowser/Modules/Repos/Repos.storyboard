@@ -135,11 +135,72 @@
                         <outlet property="searchBar" destination="Kvu-D2-pG0" id="fxS-Gb-JVO"/>
                         <outlet property="sortBarButtonItem" destination="fRg-im-X3Y" id="6R6-vF-J0C"/>
                         <outlet property="tableView" destination="Ku2-lJ-Fss" id="hYq-H6-ebM"/>
+                        <segue destination="7cK-yv-hQ1" kind="show" identifier="repoDetails" id="zlX-yV-E7J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="228" y="44.527736131934034"/>
+        </scene>
+        <!--Repo Details View Controller-->
+        <scene sceneID="gAH-AS-u8C">
+            <objects>
+                <viewController storyboardIdentifier="RepoDetailsViewController" id="7cK-yv-hQ1" customClass="RepoDetailsViewController" customModule="GithubBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LRN-Mz-JW8"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Bp-K3-nfR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HbO-gZ-RLS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rnD-75-m1o">
+                                <rect key="frame" x="16" y="72" width="343" height="575"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WAm-PX-ZwC">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="465"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5q0-wx-a1B">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="a9t-6R-yW0"/>
+                                                    <constraint firstAttribute="width" constant="150" id="oRJ-bH-MUP"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsH-El-R1m">
+                                                <rect key="frame" x="158" y="0.0" width="185" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="5q0-wx-a1B" firstAttribute="leading" secondItem="WAm-PX-ZwC" secondAttribute="leading" id="2Wq-JM-uyc"/>
+                                            <constraint firstItem="xsH-El-R1m" firstAttribute="top" secondItem="WAm-PX-ZwC" secondAttribute="top" id="niw-2Z-IUc"/>
+                                            <constraint firstAttribute="trailing" secondItem="xsH-El-R1m" secondAttribute="trailing" id="rm9-AK-Fdh"/>
+                                            <constraint firstItem="5q0-wx-a1B" firstAttribute="top" secondItem="WAm-PX-ZwC" secondAttribute="top" id="sEV-O4-jwp"/>
+                                            <constraint firstItem="xsH-El-R1m" firstAttribute="leading" secondItem="5q0-wx-a1B" secondAttribute="trailing" constant="8" id="wCh-mC-LeA"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csk-yK-Xql">
+                                        <rect key="frame" x="0.0" y="465" width="343" height="110"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rnD-75-m1o" firstAttribute="leading" secondItem="HbO-gZ-RLS" secondAttribute="leadingMargin" id="5MX-p7-Tg0"/>
+                            <constraint firstItem="rnD-75-m1o" firstAttribute="top" secondItem="LRN-Mz-JW8" secondAttribute="bottom" constant="8" id="cBM-Sw-IX4"/>
+                            <constraint firstItem="rnD-75-m1o" firstAttribute="trailing" secondItem="HbO-gZ-RLS" secondAttribute="trailingMargin" id="rGN-eN-KEA"/>
+                            <constraint firstItem="4Bp-K3-nfR" firstAttribute="top" secondItem="rnD-75-m1o" secondAttribute="bottom" constant="20" id="uOn-BC-20Y"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="phL-sz-eRm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="981.60000000000002" y="44.527736131934034"/>
         </scene>
     </scenes>
 </document>

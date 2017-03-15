@@ -21,6 +21,8 @@ struct Repo {
     let starCount: Int
     let dateCreated: Date
     let dateChanged: Date
+    let repoPage: URL
+    let authorPageUrl: URL
 }
 
 extension Repo: Unboxable {
@@ -39,5 +41,7 @@ extension Repo: Unboxable {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         self.dateCreated = try unboxer.unbox(key: "created_at", formatter: dateFormatter)
         self.dateChanged = try unboxer.unbox(key: "updated_at", formatter: dateFormatter)
+        self.repoPage = try unboxer.unbox(key: "html_url")
+        self.authorPageUrl = try unboxer.unbox(keyPath: "owner.url")
     }
 }

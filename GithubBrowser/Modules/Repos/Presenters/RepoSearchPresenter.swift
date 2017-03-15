@@ -69,4 +69,9 @@ class RepoSearchPresenter {
     func didTapSort() {
         viewController.presentSortAlert()
     }
+    
+    func didSelectItem(at index: Int) {
+        let item = items[index]
+        _ = coordinator?.navigateToDetails(repo: item)
+    }
 }

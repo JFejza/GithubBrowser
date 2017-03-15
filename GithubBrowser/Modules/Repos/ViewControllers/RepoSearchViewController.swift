@@ -22,6 +22,7 @@ class RepoSearchViewController: UIViewController, CommonViewInterface {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView()
         searchBar.rx.text.orEmpty
             .throttle(0.3, scheduler: MainScheduler.instance)
             .bindTo(presenter.query).addDisposableTo(disposeBag)
@@ -58,6 +59,11 @@ class RepoSearchViewController: UIViewController, CommonViewInterface {
     func selectSort(type: SortType) {
         presenter.sortType.value = type
     }
+    
+    deinit {
+        tableView.emptyDataSetSource = nil
+        tableView.emptyDataSetDelegate = nil
+    }
 
 }
 
@@ -75,14 +81,19 @@ extension RepoSearchViewController: UITableViewDataSource {
 }
 
 extension RepoSearchViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.didSelectItem(at: indexPath.row)
+    }
 }
 
 extension RepoSearchViewController: DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSAttributedString(string: "No results currently available")
+    }
     
-}
-
-extension RepoSearchViewController: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return presenter.numberOfItems() == 0
+    }
     
 }
 

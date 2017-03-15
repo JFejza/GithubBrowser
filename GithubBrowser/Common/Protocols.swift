@@ -32,6 +32,7 @@ extension CommonViewInterface where Self:UIViewController {
 
 protocol CoordinatorInterface {
     var navigationController: UINavigationController {get}
+    func start() -> UIViewController
     func pop()
     func dismiss()
 }

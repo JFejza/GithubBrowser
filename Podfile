@@ -18,6 +18,7 @@ target 'GithubBrowser' do
 
     target 'GithubBrowserTests' do
         inherit! :search_paths
+        pod 'FBSnapshotTestCase'
     end
 
 end

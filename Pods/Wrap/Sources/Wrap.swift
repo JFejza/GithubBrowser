@@ -261,7 +261,7 @@ public extension WrapCustomizable {
 public extension WrapCustomizable {
     /// Convert a given property name (assumed to be camelCased) to snake_case
     func convertPropertyNameToSnakeCase(propertyName: String) -> String {
-        let regex = try! RegularExpression(pattern: "(?<=[a-z])([A-Z])|([A-Z])(?=[a-z])", options: [])
+        let regex = try! NSRegularExpression(pattern: "(?<=[a-z])([A-Z])|([A-Z])(?=[a-z])", options: [])
         let range = NSRange(location: 0, length: propertyName.characters.count)
         let camelCasePropertyName = regex.stringByReplacingMatches(in: propertyName, options: [], range: range, withTemplate: "_$1$2")
         return camelCasePropertyName.lowercased()
@@ -508,11 +508,12 @@ private extension Wrapper {
         
         for mirror in mirrors {
             for property in mirror.children {
-                if "\(property.value)" == "nil" {
+
+                if (property.value as? WrapOptional)?.isNil == true {
                     continue
                 }
                 
-                guard let propertyName = property.label, propertyName != "Some" else {
+                guard let propertyName = property.label else {
                     continue
                 }
                 
@@ -546,8 +547,22 @@ private extension Wrapper {
     }
 }
 
-// MARK: - Cross platform compatibility
+// MARK: - Nil Handling
 
-#if !os(Linux)
-private typealias RegularExpression = NSRegularExpression
-#endif
+private protocol WrapOptional {
+    var isNil: Bool { get }
+}
+
+extension Optional : WrapOptional {
+    var isNil: Bool {
+        switch self {
+        case .none:
+            return true
+        case .some(let wrapped):
+            if let nillable = wrapped as? WrapOptional {
+                return nillable.isNil
+            }
+            return false
+        }
+    }
+}
